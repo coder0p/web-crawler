@@ -22,30 +22,66 @@ def configure_logging(level=logging.INFO):
     logger.addHandler(screen_handler)
 
 
-def get_artisit(baseLink):
-    resp = requests.get(baseLink)
-    soup = BeautifulSoup(resp.content,"lxml")
-    trackList = soup.find("table",attrs={"class":'tracklist'})
-    linkList = trackList.find_all('a')
-    logger.debug("Crawling starting")
-    for link in linkList:
-        img = link.find('img')
-        if img not in link:
-            logger.debug(f"Artist name: {link.text}")
-        
-    logger.debug("Completed crawling")
+def get_artists(base):
+    artists = {}
+    logger.debug(f"requesting {base} ...")
+    res = requests.get(base)
+    logger.debug(f"status: {res.status_code}")
+    soup = BeautifulSoup(res.content, "lxml")
+    tracklist = soup.find("table", attrs={"class": "tracklist"})
+    headings = tracklist.find_all('h3')
+    if headings:
+        logger.debug('artist list parsed successfully')
+    for heading in headings:
+        artists[heading.text] = heading.a['href']
+    else:
+        logger.debug("Something went wrong!")
+
+    return artists
+    
+
+def get_song_list(base):
+    songs = {}
+    logger.debug(f"requesting {base} ...")
+    res = requests.get(base)
+    logger.debug(f"status: {res.status_code}")
+    soup = BeautifulSoup(res.content, "lxml")
+    track = soup.find("table", attrs={"class": "tracklist"})
+    links = track.find_all('a')
+    if links:
+        logger.debug("song list parsed successfully")
+    for link in links:
+        songs[link.text] = link["href"]
+    else:
+        logger.debug("Something went wrong!")
+
+    return songs
+
+
+def get_lyrics(base):
+    logger.debug(f"requesting {base} ...")
+    res = requests.get(base)
+    logger.debug(f"status: {res.status_code}")
+    soup = BeautifulSoup(res.content, "lxml")
+    lyrics = soup.find("p", attrs={"id": "songLyricsDiv"})
+    if lyrics:
+        logger.debug("lyrics parsed successfully")
+    else:
+        logger.debug("Something went wrong!")
+
+    return lyrics.text
 
 
 def main():
-    
     args = parse_args()
     if args.debug:
         configure_logging(logging.DEBUG)
     else:
         configure_logging(logging.INFO)
-   
-    get_artisit("http://www.songlyrics.com/top-artists-lyrics.html")
-
+    
+    artists = get_artists("https://www.songlyrics.com/top-artists-lyrics.html")
+    songs = get_song_list(list(artists.values())[0]) #passing link of first song
+    lyrics = get_lyrics(list(songs.values())[0]) #passing link of first song's lyrics
 
 
 if __name__ == "__main__":
