@@ -41,7 +41,7 @@ def get_artists(base):
     
 
 def get_song_list(base):
-    songs = {}
+    songsLink = {}
     logger.debug(f"requesting {base} ...")
     res = requests.get(base)
     logger.debug(f"status: {res.status_code}")
@@ -51,11 +51,12 @@ def get_song_list(base):
     if links:
         logger.debug("song list parsed successfully")
     for link in links:
-        songs[link.text] = link["href"]
+        songsLink[link.text] = link["href"]
     else:
         logger.debug("Something went wrong!")
 
-    return songs
+
+    return songsLink
 
 
 def get_lyrics(base):
@@ -80,8 +81,8 @@ def main():
         configure_logging(logging.INFO)
     
     artists = get_artists("https://www.songlyrics.com/top-artists-lyrics.html")
-    songs = get_song_list(list(artists.values())[0]) #passing link of first song
-    lyrics = get_lyrics(list(songs.values())[0]) #passing link of first song's lyrics
+    songsLink = get_song_list(list(artists.values())[0]) #passing link of first song
+    lyrics = get_lyrics(list(songsLink.values())[0]) #passing link of first song's lyrics
 
 
 if __name__ == "__main__":
