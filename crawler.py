@@ -129,9 +129,11 @@ def add_database():
     conn = db.get_connection(dbname)
     for artist_name, artist_link in get_artists_list('http://www.songlyrics.com/top-artists-lyrics.html').items():
         last_id = db.add_artist(conn,artist_name)
-        for song, song_link in get_song_list(artist_link).items():
+        for song_name, song_link in get_song_list(artist_link).items():
             lyrics = get_song_lyrics(song_link)
-        db.add_song(conn,song, last_id, lyrics)
+            db.add_song(conn,song_name, last_id, lyrics)
+            logger.debug("%s added and corresponding %s song and lyrics",artist_name,song_name)
+    logger.info("Data adding successful, connection is closing.....")
     conn.close()
 
 
