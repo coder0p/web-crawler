@@ -1,4 +1,4 @@
-#WEB CRAWLER
+#web-crawler
 
 --> crawling artist's names, songs, and corresponding lyrics to database 
 
