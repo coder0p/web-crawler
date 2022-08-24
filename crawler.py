@@ -8,7 +8,8 @@ from bs4 import BeautifulSoup
 
 
 import db
-
+import web
+import alchamey
 
 logger = None
 dbname = "lyrics"
@@ -128,13 +129,16 @@ def add_database():
 
     conn = db.get_connection(dbname)
     for artist_name, artist_link in get_artists_list('http://www.songlyrics.com/top-artists-lyrics.html').items():
-        last_id = db.add_artist(conn,artist_name)
+        artist_name = artist_name.replace("/", " ")
+        last_id = alchamey.add_artist(artist_name)
         for song_name, song_link in get_song_list(artist_link).items():
+            song_name = song_name.replace("/"," ")
             lyrics = get_song_lyrics(song_link)
-            db.add_song(conn,song_name, last_id, lyrics)
+            alchamey.add_song(song_name, lyrics,last_id)
             logger.debug("%s added and corresponding %s song and lyrics",artist_name,song_name)
     logger.info("Data adding successful, connection is closing.....")
     conn.close()
+
 
 
 def main():
@@ -152,12 +156,18 @@ def main():
         logger.info("Scraping completed!")
     elif args.command == "initdb":
         logger.info("Initializing database....")
-        create_tables()
+        alchamey.create_table()
         logger.info("%s database initialized!!", dbname)
     elif args.command == "addir":
         logger.info("Creating directory...")
         crawl('artists')
         logger.info("Directory created successfully!")
+    elif args.command == "web":
+        logger.info("starting web server")
+        # create_tables()
+        # add_database()
+        web.app.run()
+
     else:
         logger.warning("%s not implemented!!!", args.command)
     
