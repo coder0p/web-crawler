@@ -1,0 +1,42 @@
+h1.main_h1{
+    color:blue;
+    text-align: center;
+}
+a{
+    color: black !important;
+    text-decoration: none !important;
+}
+li{
+    color:rgb(0, 37, 202);
+    border-radius: 2px solid black;
+    
+}
+li:hover{
+    color: red;
+}
+h1.main_h1{
+    color: black;
+}
+.box-names{
+    
+    border-style: groove;
+    border-radius: 50px;
+}
+.left-sidebar{
+    background-color: cadetblue;
+    border-right:4px solid rgb(0, 107, 110) ;
+    border-radius: 20px;
+}
+footer.ps-5{
+    padding-left: 24rem !important;
+}
+.design-cour{
+    font-weight: 500;
+}
+.artist-list{
+    border-bottom: 5px groove black;
+    border-radius: 10px;
+}
+h2.pt-5{
+    padding-top: 7rem !important
+}

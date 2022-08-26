@@ -48,7 +48,7 @@ def get_artists_list(base):
     headings = tracklist.find_all('h3')
     if headings:
         logger.debug('artist list parsed successfully')
-        for heading in headings[:5]:
+        for heading in headings[:10]:
             artists[heading.text] = heading.a['href']
            
     else:
@@ -164,8 +164,6 @@ def main():
         logger.info("Directory created successfully!")
     elif args.command == "web":
         logger.info("starting web server")
-        # create_tables()
-        # add_database()
         web.app.run()
 
     else:

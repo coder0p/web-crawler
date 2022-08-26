@@ -1,11 +1,27 @@
 {%extends "base.html"%}
-    {% block content %}
-        <h1>{{artist}}'s Songs</h1>
-            <div>
-                <ol>
-                    {% for song in songs %}
-                    <a href ="{{url_for("song", song_id = song.id)}}"><li class = "songslist">{{song.name}}</li></a>
-                    {% endfor %}
-                </ol>
-            </div>
+ 
+    {% block songs %}
+
+        <h2 class="pt-5">{{artist.name}}'s Songs
+        </h2>
     {%endblock%}
+
+           {% block content %}
+            <div>
+            
+                
+                <ol>
+                    
+                    {% for song in songs %}
+                    <a href ="{{url_for("song", song_id = song.id)}}">
+                        <li class = "box-names ps-2 py-3 m-0">{{song.name}}</li>
+                    </a>
+                    
+                    {% endfor %}
+                
+                </ol>
+             
+
+            </div>
+    
+            {%endblock%}

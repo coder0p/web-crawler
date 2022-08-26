@@ -36,15 +36,16 @@ def artist(artist_id):
     
     songs = Songs.query.filter_by(artist_id = artist_id).all()
     
-    artist = Artists.query.get(artist_id)
+    artists = Artists.query.get(artist_id)
 
-    return render_template('songs.html',artist = artist.name, songs = songs)
+    return render_template('songs.html',artist = artists, songs = songs)
 
 @app.route("/song/<int:song_id>")
 def song(song_id):
     song = Songs.query.filter_by(id = song_id).first()
+    songs = Songs.query.filter_by(artist_id = song.artist_id).all()
     lyrics = song.lyrics.replace("\n","<br>")
-    return render_template('lyrics.html', song_name =song.name, lyrics=lyrics)  
+    return render_template('lyrics.html', artist_name = song.artist.name,song_name =song.name, songs = songs , lyrics=lyrics,song_id = song.id)  
 
 
 
