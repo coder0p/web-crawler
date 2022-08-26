@@ -12,8 +12,22 @@ li{
     
 }
 li:hover{
-    color: red;
+    padding: 20px ;
+    color: red ;
+    transition: transform .9s ;
+    
 }
+.song-name:hover{
+    margin-left: 20px !important;
+    transition: transform .9s !important ;
+}
+
+.lyrics-songs:hover{
+    color: black !important;
+    margin-left: 0px !important;
+    background-color: crimson !important;
+}
+
 h1.main_h1{
     color: black;
 }

@@ -14,7 +14,7 @@
                     
                     {% for song in songs %}
                     <a href ="{{url_for("song", song_id = song.id)}}">
-                        <li class = "box-names ps-2 py-3 m-0">{{song.name}}</li>
+                        <li class = "song-name box-names ps-2 py-3 m-0">{{song.name}}</li>
                     </a>
                     
                     {% endfor %}
