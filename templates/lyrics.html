@@ -1,31 +1,39 @@
 {%extends "base.html"%}
 
-{% block songs%}
-                <h2 class="ps-2 pt-2 pb-3">{{artist_name}}'s Songs</h2>
+{% block sidebar%}
+                <h2 class="ps-2 pt-2 pb-3">{{song.artist.name}}'s Songs</h2>
                 <ol>
                     
-                    {% for song in songs %}
-                    <a href ="{{url_for("song", song_id = song.id)}}">
-                        {% if song.id == song_id%}
-                        <li class = "lyrics-songs box-names ps-2 py-3 m-1 song-name">{{song.name}}</li>
+                    {% for s in songs %}
+                        {% if song.id == s.id%}
+                        <li id="{{s.id}}" class = "songlist lyrics-songs box-names ps-2 py-3 m-1 song-name">{{s.name}}</li>
                         {% else %}
-                        <li class = "ps-2 py-3 m-1">{{song.name}}</li>
+                        
+                        <li Id ="{{s.id}}" class = "songLink ps-2 py-3 m-1">
+                            <a  class="songLink" href ="{{url_for("song", song_id = s.id)}}">
+                            {{s.name}}</a>   
+                    </li>
                         {% endif %}
-                    </a>
                     
                     {% endfor %}
                 
                 </ol>
                 {%endblock%}
-{% block content %}
+
     
-    <center><h1>{{song_name}}
+    {% block content %}
+    
+    <div class="lyrics">
+    <center><h1>{{song.name}}
         
         <i class="fa-solid fa-circle-play"></i>
     </h1></center>
-    <div>
         {% autoescape off %}
-        <em><center>{{lyrics}}</center></em>
+        <em>
+            <center>
+                {{song.lyrics.replace("\n","<br>")}}
+            </center>
+        </em>
         {% endautoescape %}
     </div>
     {%endblock%}

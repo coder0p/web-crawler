@@ -1,41 +1,42 @@
 h1.main_h1{
     color:blue;
     text-align: center;
+   
 }
 a{
-    color: black !important;
-    text-decoration: none !important;
+    color: #003480 !important;
+     text-decoration: none !important;
 }
-li{
+/* li{
     color:rgb(0, 37, 202);
     border-radius: 2px solid black;
     
-}
-li:hover{
+} */
+/* li:hover{
     padding: 20px ;
-    color: red ;
-    transition: transform .9s ;
+    color: red;
     
-}
-.song-name:hover{
+    
+} */
+/* .song-name:hover{
     margin-left: 20px !important;
     transition: transform .9s !important ;
-}
+} */
 
-.lyrics-songs:hover{
+/* .lyrics-songs:hover{
     color: black !important;
     margin-left: 0px !important;
     background-color: crimson !important;
-}
+} */
 
 h1.main_h1{
     color: black;
 }
-.box-names{
+/* .box-names{
     
     border-style: groove;
     border-radius: 50px;
-}
+} */
 .left-sidebar{
     background-color: cadetblue;
     border-right:4px solid rgb(0, 107, 110) ;
